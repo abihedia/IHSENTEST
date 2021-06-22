@@ -3,7 +3,7 @@ from appdirs import unicode
 from odoo import models, fields, api, _, tools
 
 class AccountMoveLine(models.Model):
-    _name = "account.move.line"
+    _inherit = "account.move.line"
     _description = "Journal Item"
 
     x_studio_pourcentage_situation = fields.Float(string='pourcentage situation')
