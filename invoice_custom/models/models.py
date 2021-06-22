@@ -2,6 +2,11 @@
 from appdirs import unicode
 from odoo import models, fields, api, _, tools
 
+class AccountMoveLine(models.Model):
+    _name = "account.move.line"
+    _description = "Journal Item"
+
+    x_studio_pourcentage_situation = fields.Float(string='pourcentage situation')
 
 class AccountMove(models.Model):
     _inherit = "account.move"
@@ -10,6 +15,7 @@ class AccountMove(models.Model):
     # ajout champs amount_market dans le modele facturation
     amount_market = fields.Monetary(string='Montant Marché', compute='_get_amount_market_sale')
     advance = fields.Boolean(string="% site section", compute='_get_per_advance_categ', default=False)
+
 
     # @api.depends('partner_id', 'state')
     def _get_amount_market_sale(self):
