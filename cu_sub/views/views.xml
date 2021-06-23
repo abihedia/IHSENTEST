@@ -13,8 +13,8 @@
                 </xpath>
                 <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/form/sheet/field[@name='name']"
                        position="after">
-                    <label for="my_cu_subtotal" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>
-                    <field name="my_cu_subtotal" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>
+                    <label for="x_studio_subtotal" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>
+                    <field name="x_studio_subtotal" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>
 
                 </xpath>
             </field>

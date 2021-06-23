@@ -21,9 +21,9 @@ class AccountMove(models.Model):
     #
     #     self.amount_market = amount
 
-    my_cu_subtotal = fields.Monetary(string='Subtotal Cu')
 
-    @api.depends('invoice_line_ids.price_subtotal')
+
+    @api.depends('invoice_line_ids.x_studio_subtotal')
     def _get_per_advance_categ(self):
         """
         Calculer advance.
@@ -42,7 +42,7 @@ class AccountMove(models.Model):
 
                 if line.display_type != 'line_section' and line.display_type != 'line_note':
                     # av_line += line.per_advance_product
-                    av_line += line.my_cu_subtotal
+                    av_line += line.x_studio_subtotal
                     comp_line += 1
                 if line.display_type == 'line_section':
                     if comp_line != 0:
@@ -56,7 +56,7 @@ class AccountMove(models.Model):
                         av_note = av_section
                         av_section -= av_section
                         comp_section = 0
-                        line.my_cu_subtotal = av_note
+                        line.x_studio_subtotal = av_note
                         # line.write({'per_advance_note': av_note
                         #             })
 
