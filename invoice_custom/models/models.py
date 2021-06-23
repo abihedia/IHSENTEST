@@ -46,17 +46,17 @@ class AccountMove(models.Model):
                     comp_line += 1
                 if line.display_type == 'line_section':
                     if comp_line != 0:
-                        av_section += av_line / comp_line
+                        av_section += av_line
                         av_line -= av_line
                         comp_line = 0
                         comp_section += 1
 
                 if line.display_type == 'line_note':
                     if comp_section != 0:
-                        av_note = av_section / comp_section
+                        av_note = av_section
                         av_section -= av_section
                         comp_section = 0
-                        line.x_studio_pourcentage_situation = av_note * 100
+                        line.x_studio_pourcentage_situation = av_note
                         # line.write({'per_advance_note': av_note
                         #             })
 
