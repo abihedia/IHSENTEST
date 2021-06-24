@@ -20,8 +20,9 @@ class AccountMove(models.Model):
     #         amount += par.amount_total
     #
     #     self.amount_market = amount
-
-
+    # first_test_field=fields.Char(string='ihsen test *****************')
+    # cu_price_subtotal = fields.Monetary(string='Subtotal Cu', store=True, readonly=True,
+    #                                  currency_field='currency_id')
 
     @api.depends('invoice_line_ids.price_subtotal')
     def _get_per_advance_categ_subtot(self):
