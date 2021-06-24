@@ -7,19 +7,19 @@ class AccountMove(models.Model):
     _inherit = "account.move"
     _description = "Journal Entry"
 
-    # ajout champs amount_market dans le modele facturation
-    amount_market = fields.Monetary(string='Montant Marché', compute='_get_amount_market_sale')
-    # @api.depends('partner_id', 'state')
-    def _get_amount_market_sale(self):
-        """
-        Calculer Montant Marché par client.
-        """
-        sale_ids = self.env['sale.order'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'sale')])
-        amount = 0.0
-        for par in sale_ids:
-            amount += par.amount_total
-
-        self.amount_market = amount
+    # # ajout champs amount_market dans le modele facturation
+    # amount_market = fields.Monetary(string='Montant Marché', compute='_get_amount_market_sale')
+    # # @api.depends('partner_id', 'state')
+    # def _get_amount_market_sale(self):
+    #     """
+    #     Calculer Montant Marché par client.
+    #     """
+    #     sale_ids = self.env['sale.order'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'sale')])
+    #     amount = 0.0
+    #     for par in sale_ids:
+    #         amount += par.amount_total
+    #
+    #     self.amount_market = amount
 
 
 
