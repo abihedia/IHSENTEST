@@ -7,24 +7,27 @@ class AccountMove(models.Model):
     _inherit = "account.move"
     _description = "Journal Entry"
 
-    # # ajout champs amount_market dans le modele facturation
-    # amount_market = fields.Monetary(string='Montant Marché', compute='_get_amount_market_sale')
-    # # @api.depends('partner_id', 'state')
-    # def _get_amount_market_sale(self):
-    #     """
-    #     Calculer Montant Marché par client.
-    #     """
-    #     sale_ids = self.env['sale.order'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'sale')])
-    #     amount = 0.0
-    #     for par in sale_ids:
-    #         amount += par.amount_total
-    #
-    #     self.amount_market = amount
-    first_test_field=fields.Char(string='ihsen test *****************')
-    cu_price_subtotal = fields.Monetary(string='Subtotal Cu', store=True, readonly=True,
-                                     currency_field='currency_id')
+    # ajout champs amount_market dans le modele facturation
+    amount_market = fields.Monetary(string='Montant Marché', compute='_get_amount_market_sale')
+    advance_md = fields.Boolean(string="subtotal section", compute='_get_per_advance_categ_subtot', default=False)
 
-    @api.depends('invoice_line_ids.cu_price_subtotal')
+    # @api.depends('partner_id', 'state')
+    def _get_amount_market_sale(self):
+        """
+        Calculer Montant Marché par client.
+        """
+        sale_ids = self.env['sale.order'].search([('partner_id', '=', self.partner_id.id), ('state', '=', 'sale')])
+        amount = 0.0
+        for par in sale_ids:
+            amount += par.amount_total
+
+        self.amount_market = amount
+
+    #     my_test_field=fields.Char(string='ihsen test *****************')
+    #     cu_price_subtotal = fields.Monetary(string='Subtotal Cu', store=True, readonly=True,
+    #                                      currency_field='currency_id')
+
+    @api.depends('invoice_line_ids.price_subtotal')
     def _get_per_advance_categ_subtot(self):
         """
         Calculer advance.
@@ -32,7 +35,7 @@ class AccountMove(models.Model):
         # *********************************
         for rec in self:
 
-            rec.advance = False
+            rec.advance_md = False
             av_line = 0.0
             comp_line = 0
             av_section = 0.0
@@ -43,7 +46,7 @@ class AccountMove(models.Model):
 
                 if line.display_type != 'line_section' and line.display_type != 'line_note':
                     # av_line += line.per_advance_product
-                    av_line += line.cu_price_subtotal
+                    av_line += line.price_subtotal
                     comp_line += 1
                 if line.display_type == 'line_section':
                     if comp_line != 0:
@@ -57,11 +60,11 @@ class AccountMove(models.Model):
                         av_note = av_section
                         av_section -= av_section
                         comp_section = 0
-                        line.cu_price_subtotal = av_note
+                        line.price_subtotal = av_note
                         # line.write({'per_advance_note': av_note
                         #             })
 
-            rec.advance = True
+            rec.advance_md = True
 
 
 class AccountMoveLine(models.Model):
