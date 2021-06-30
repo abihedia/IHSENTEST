@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <!-- inherit a form view -->
+        <record model="ir.ui.view" id="project_edit_ih_project_iherited">
+            <field name="name">Project.task.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page/field[@name='description']" position="after">
+                    <label for="moy_pourcentage"/>
+                    <div name="amount_market" class="d-flex">
+                        <field name="moy_pourcentage"/>
+                    </div>
+<!--                    <field name="advance" invisible="1"/>-->
+                </xpath>
+<!--                <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='account_id']"-->
+<!--                       position="after">-->
+<!--                    <field name="categ_id"/>-->
+<!--&lt;!&ndash;                    <field name="per_advance"/>&ndash;&gt;-->
+<!--                </xpath>-->
+<!--                <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='sequence']"-->
+<!--                       position="attributes">-->
+<!--                    <attributes name="invisible">1</attributes>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//form/sheet/notebook/page/field[@name='invoice_line_ids']/form/sheet/field[@name='name']"-->
+<!--                       position="after">-->
+<!--                    <label for="x_studio_pourcentage_situation" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>-->
+<!--                    <field name="x_studio_pourcentage_situation" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>-->
+
+<!--                </xpath>-->
+            </field>
+        </record>
+
+    </data>
+</odoo>
