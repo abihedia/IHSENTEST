@@ -7,7 +7,7 @@ class SaleOrder(models.Model):
     _description = "Sale order"
 
     # ajout champs amount_market dans le modele facturation
-
+    amount_market = fields.Monetary(string='Montant Marché', compute='_get_amount_market_sale')
     advance_bc = fields.Boolean(string="subtotal section", compute='_get_per_advance_categ_subtot_bc', default=False)
 
 
